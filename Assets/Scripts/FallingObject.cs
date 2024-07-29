@@ -1,16 +1,17 @@
 using System.Collections;
 using UnityEngine;
 
-public class CubeBehaviour : MonoBehaviour
+public class FallingObject : MonoBehaviour
 {
     private bool _colorChanged = false;
     private float _lifeTime;
     private ObjectPool _objectPool;
     private Renderer _renderer;
 
-    public void Initialize(ObjectPool objectPool)
+    public void Initialize(ObjectPool objectPool, float minLifetime, float maxLifetime)
     {
         _objectPool = objectPool;
+        _lifeTime = Random.Range(minLifetime, maxLifetime);
     }
 
     private void Start()
@@ -20,14 +21,12 @@ public class CubeBehaviour : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Platform"))
+        if (collision.gameObject.GetComponent<Platform>() != null)
         {
             if (!_colorChanged)
             {
                 _renderer.material = new Material(Shader.Find("Standard"));
                 _renderer.material.color = new Color(Random.value, Random.value, Random.value);
-
-                _lifeTime = Random.Range(2f, 5f);
 
                 StartCoroutine(DestroyAfterTime(_lifeTime));
 

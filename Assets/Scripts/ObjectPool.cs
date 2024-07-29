@@ -4,7 +4,7 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     [SerializeField] private GameObject _prefab;
-    [SerializeField] private int _poolSize = 20;
+    [SerializeField] private int _poolSize = 50;
 
     private Queue<GameObject> _pool = new Queue<GameObject>();
 
